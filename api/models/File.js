@@ -28,7 +28,11 @@ module.exports = {
         type: 'string',
         required: true,
       },
-  
+
+      size: {
+        type: 'number'
+      }
+
   
       //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
       //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -42,26 +46,20 @@ module.exports = {
   
     
     uploadAndRegister: async function (files, uploadOpts) {
-      if (!files.length) {
-        return null;
-      }
-  
-      var uploadOptions = Object.assign({ maxBytes: 10 * 1000 * 1000 /** 10 MiB **/ }, uploadOpts)
+      var uploadOptions = Object.assign({ maxBytes: 50 * 1000 * 1000 /** 10 MiB **/ }, uploadOpts)
+      
       var uploadedFiles = await sails.upload(files, uploadOptions);
-  
+      
       if (!uploadedFiles.length) {
+        console.log('No files to upload')
         return null;
       }
-  
-    //   var fileRegisterd = await File.create({
-    //     fd: uploaded.fd,
-    //     type: uploaded.type,
-    //     category: category
-    //   }).fetch();
-  
-      console.log(uploadOptions)
 
-      return fileRegisterd
+      var registerdFiles = await File.createEach(
+        uploadedFiles.map(e => ({name: e.filename, type: e.type,size: e.size, fd: e.fd}) )
+      ).fetch();
+  
+      return registerdFiles
     },
 
   

@@ -1,4 +1,38 @@
 #homepage {
+  .action-button{
+    cursor: pointer;
+    color: #007bff;
+  }
+
+  .action-button:hover{
+    color: #0056b3;
+  }
+
+  .file-clickable {
+    color: white;
+    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    position: relative;
+
+    .delete{
+      display: none;
+      position: absolute;
+      left: 45%;
+      top: 10%;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  .file-clickable:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    .text{
+      visibility: hidden;
+    }
+    .delete{display: block}
+  }
 
   .hero {
     padding-top: 100px;

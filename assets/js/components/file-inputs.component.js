@@ -22,6 +22,7 @@ parasails.registerComponent('filesInput', {
     //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
     data: function () {
         return {
+            filesArray: []          
         };
     },
 
@@ -32,17 +33,14 @@ parasails.registerComponent('filesInput', {
     //  ╠═╣ ║ ║║║║
     //  ╩ ╩ ╩ ╩ ╩╩═╝
     template: `
-        <div v-if="files.length" class="d-flex flex-column">
-            <div v-form="(file, index) in files" class="d-flex flex-row">
-                <!-- <span>{{index + 1}}</span>
-                <span>{{file.name}}</span>
-                <button @click=""> 
-                <i class="fa fa-trash-o" aria-hidden="true"></i>    
-                </button> -->
+        <div v-if="filesArray.length" class="d-flex flex-row flex-wrap align-items-start w-100">
+            <div v-for="(file,index) in filesArray" class="file-clickable m-2" @click="deleteFromSelection(index)">
+                <span v-text="file.name" class="text" ></span>
+                <span class="delete" >&times;</span>
             </div>
         </div>
 
-        <input v-else class="form-control" @change="fileSelection" type="file" multiple>
+        <input v-else class="form-control-file" ref="input" @change="fileSelection" type="file" multiple>
     `,
 
     //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -59,21 +57,19 @@ parasails.registerComponent('filesInput', {
         
 
         fileSelection: function (e) {
-            component = this
-            var files = e.target.files || e.dataTransfer.files;
-
-            console.log(files)
-
-            this.$emit('update:files', files);
-
-            // var fr = new FileReader();
-            // fr.onload = function () {
-            //     component.url = fr.result;
-            // }
-            // fr.readAsDataURL(file);
+            this.filesArray = Array.from(e.target.files || e.dataTransfer.files);
+            this.$emit('update:files', e.target.files || e.dataTransfer.files);
         },
 
-    
+        deleteFromSelection: function (indexToDelete) {
+            this.filesArray = this.filesArray.filter((e,index) => index != indexToDelete)
+            var dTransfer =  new DataTransfer();
 
+            this.filesArray.forEach(element => {
+                dTransfer.items.add(element)
+            });
+
+            this.$emit('update:files', dTransfer.files );
+        }
     }
 });

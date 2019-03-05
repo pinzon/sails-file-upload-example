@@ -3,13 +3,7 @@ parasails.registerPage('homepage', {
   //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
-    files: [{
-      id: 0,
-      name: 'jajaja.jpg',
-      url: 'http://localhost:1337/cdn/1',
-      fd: '/etc/path/to/file',
-      type: 'image/png'
-    }],
+    files: [],
 
     modalFiles: false,
     modalDelete:false,
@@ -46,16 +40,54 @@ parasails.registerPage('homepage', {
       this.modalFiles = true
     },
 
+    showDeleteModal: function (e) {
+      this.formData.id = e.id
+      this.formData.name = e.name
+      this.modalDelete = true
+    },
+
     getFileIcon: function (fileType) {
       return `<i title="${fileType}" class="fa ${this.filesIcons[fileType] || 'fa-file' }" aria-hidden="true"></i>`
     },
 
     parseNewFiles: function () {
-      return {};
+      this.formErrors = {};
+
+      if (!this.formData.files.length){
+        this.formErrors.files = true;
+      }
+
+      if (Object.keys(this.formErrors).length > 0) {
+        return;
+      }
+
+      // console.log('sending: ',this.formData)
+      return this.formData;
+    },
+
+    parseDeleteForm: function () {
+      this.formErrors = {};
+
+      if (!this.formData.id){
+        this.formErrors.id = true;
+      }
+
+      if (Object.keys(this.formErrors).length > 0) {
+        return;
+      }
+
+      // console.log('sending: ',this.formData)
+      return this.formData;
     },
 
     handleNewResult: function (result) {
-      console.log(result)
+      this.files = this.files.concat(result.files)
+      this.closeModal()
+    },
+
+    handleDeleteResult: function (result) {
+      this.files = this.files.filter(e => this.formData.id != e.id)
+      this.closeModal()
     },
 
     closeModal: function () {

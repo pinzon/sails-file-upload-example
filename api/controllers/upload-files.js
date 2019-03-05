@@ -30,7 +30,6 @@ module.exports = {
 
     fn: async function (inputs, exits) {
         var createdFiles = await File.uploadAndRegister(inputs.files)
-
         return exits.success({files: createdFiles});
     }
 };

@@ -1,33 +1,25 @@
 module.exports = {
 
 
-  friendlyName: 'View homepage or redirect',
+  friendlyName: 'View homepage',
 
 
-  description: 'Display or redirect to the appropriate homepage, depending on login status.',
+  description: 'Shows home page and with files already saved.',
 
 
   exits: {
 
     success: {
       statusCode: 200,
-      description: 'Requesting user is a guest, so show the public landing page.',
+      description: 'Showing homepage',
       viewTemplatePath: 'pages/homepage'
     },
-
-    redirect: {
-      responseType: 'redirect',
-      description: 'Requesting user is logged in, so redirect to the internal welcome page.'
-    },
-
   },
 
 
   fn: async function () {
-
-    
-    return {};
-    
+    var files = await File.find({});
+    return {files: files};
   }
 
 
