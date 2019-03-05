@@ -1,28 +1,24 @@
-# user-file-uploads-example
+# Sails User File-Uploads Example
 
-a [Sails v1](https://sailsjs.com) application
+A simple [Sails v1](https://sailsjs.com) application that demonstrates how to upload / download user files.
+Also showcases a  that lets you edit the list of selected files before uploading
 
+##Importan Files
+* [File Input Component ](https://github.com/pinzon/sails-file-upload-example/blob/master/assets/js/components/file-inputs.component.js)
+* [Upload Action ](https://github.com/pinzon/sails-file-upload-example/blob/master/api/controllers/upload-files.js)
+* [File Model ](https://github.com/pinzon/sails-file-upload-example/blob/master/api/models/File.js)
+* [Download action ](https://github.com/pinzon/sails-file-upload-example/blob/master/api/controllers/download-file.js)
 
-### Links
+##Main View
+![Main view](https://raw.githubusercontent.com/pinzon/sails-file-upload-example/master/screenshots/main.png  "Main view")
+ 
+##Uploading Files
+Process to upload a list of files
 
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+|  File Input Empty | Selected Files   | Deleting a selected file |
+|---|---|---|
+|![Empty](https://raw.githubusercontent.com/pinzon/sails-file-upload-example/master/screenshots/upload-empty.png  "Empty input")|![Selected file](https://raw.githubusercontent.com/pinzon/sails-file-upload-example/master/screenshots/upload-selecting.png  "Selected files")|![Deleting selection](https://raw.githubusercontent.com/pinzon/sails-file-upload-example/master/screenshots/upload-deleting.png "Deleting selection")|
 
-
-### Version info
-
-This app was originally generated on Mon Mar 04 2019 18:34:29 GMT-0500 (hora estándar oriental) using Sails v1.1.0.
-
-<!-- Internally, Sails used [`sails-generate@1.16.0`](https://github.com/balderdashy/sails-generate/tree/v1.16.0/lib/core-generators/new). -->
-
-
-This project's boilerplate is based on an expanded seed app provided by the [Sails core team](https://sailsjs.com/about) to make it easier for you to build on top of ready-made features like authentication, enrollment, email verification, and billing.  For more information, [drop us a line](https://sailsjs.com/support).
-
-
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
-
+##Deleting a file
+Display of modal to delete a file
+![Deleting file](https://raw.githubusercontent.com/pinzon/sails-file-upload-example/master/screenshots/deleting-file.png  "Deleting ile")
