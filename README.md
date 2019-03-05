@@ -1,7 +1,6 @@
 # Sails User File-Uploads Example
 
-A simple [Sails v1](https://sailsjs.com) application that demonstrates how to upload / download user files.
-Also showcases a  that lets you edit the list of selected files before uploading
+A simple [Sails v1](https://sailsjs.com) application that demonstrates how to upload / download user files. Also showcases a [Custom Parasails (Vue) Component](https://github.com/mikermcneil/parasails) that lets you edit the list of selected files before uploading
 
 ## Importan Files
 * [File Input Component ](https://github.com/pinzon/sails-file-upload-example/blob/master/assets/js/components/file-inputs.component.js)
