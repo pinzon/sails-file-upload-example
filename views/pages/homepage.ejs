@@ -1,0 +1,74 @@
+<div id="homepage" v-cloak>
+  <div class="hero d-flex flex-row">
+      <div class="container">
+          <div class="row no-gutters justify-content-start"> 
+              <div class="col-2">
+                  <h1>Files</h1>
+              </div>
+              <div class="col-2">
+                  <!-- <button class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>Upload file</button> -->
+                  <button @click="showNewFile()" class="btn btn-info"> <i class="fa fa-plus" aria-hidden="true"></i> Files</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container text-center">
+    <div class="row">
+      <table class="table"> 
+        <thead>
+          <td scope="">#</td>
+          <td scope="col">Name</td>
+          <td scope="col">Type</td>
+          <td scope="col"></td>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in files" :key="item.id">
+            <td v-text="index + 1"></td>
+            <td v-text="item.name"></td>
+            <td v-html="getFileIcon(item.type)"> </td>
+            <td class="action-button-container">
+              <!-- <i @click="showUpdateModal(item)" class="fa fa-pencil-square-o action-button" aria-hidden="true"></i> -->
+              <a :href="item.url" download><i class="fa fa-download" aria-hidden="true"></i></a>
+              <i @click="showDeleteModal(item)" class="fa fa-trash action-button" aria-hidden="true"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+  </div>
+
+  <modal v-if="modalFiles" @close="closeModal()" v-cloak>
+    <div class="modal-header">
+      <h5 class="modal-title">New File</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <ajax-form action="modalFiles" :syncing.sync="syncing" :cloud-error.sync="ajaxFormError" @submitted="handleNewResult($event)"
+      :handle-parsing="parseNewFiles">
+      <div class="modal-body">
+
+
+        <div class="form-group">
+          <label for="">Files:</label>
+          <files-input :files.sync="formData.files"></files-input>
+          <div class="invalid-feedback" v-if="formErrors.files">Please, select a file </div>
+        </div>
+      
+
+        <label v-if="ajaxFormError" for="" class="text-danger">
+          Error uploading files, please be sure files are not too big.
+        </label>
+      </div>
+
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-outline-secondary mr-1">Cancel</button>
+        <ajax-button type="submit" :syncing="syncing" class="btn btn-primary mr-1"> UPLOAD</ajax-button>
+      </div>
+
+    </ajax-form>
+  </modal>
+</div>
+<%- /* Expose locals as `window.SAILS_LOCALS` :: */ exposeLocalsToBrowser() %>
